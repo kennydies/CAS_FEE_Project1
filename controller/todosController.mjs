@@ -8,7 +8,6 @@ export class TodosController {
     };
 
     async createTodo(req, res) {
-        console.log(req.body.title);
         res.json(await todoStore.add(
             SecurityUtil.currentUser(req),
             req.body.title,

@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import jwt from 'express-jwt';
 
-// import {indexRoutes} from './routes/indexRoutes';
+import {indexRoutes} from './routes/indexRoutes';
 import {todoRoutes} from './routes/todoRoutes';
 
 const app = express();
@@ -25,7 +25,7 @@ app.get('/', function (req, res) {
    res.sendFile('/html/index.html', {root: __dirname + '/public/'});
 });
 
-// app.use('/', indexRoutes);
+app.use('/', indexRoutes);
 app.use(jwt( app.get('jwt-validate')));
 app.use('/todos', todoRoutes);
 
