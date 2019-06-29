@@ -4,7 +4,7 @@ export class Todo {
     constructor(creator, title, description, importance, dueDate) {
         let now = new Date();
 
-        this.title = title;
+        this.title = title || '';
         this.creator = creator;
         this.creationDate = now;
         this.description = description || '';
@@ -32,11 +32,11 @@ export class TodoStore {
         return await this.db.update(
             { _id: id, creator: currentUser },
             { $set: {
-                    title: title,
-                    description: description,
-                    importance: importance,
-                    dueDate: dueDate,
-                    state: state }},
+                title: title,
+                description: description,
+                importance: importance,
+                dueDate: dueDate,
+                state: state }},
             { returnUpdatedDocs: true },
             function (err) {
                 if (err){
@@ -47,18 +47,18 @@ export class TodoStore {
     }
 
     async delete(currentUser, req) {
-        await this.db.update({
-                _id: req.id,
-                creator: currentUser},
-            {$set: {"state": "DELETED"}
+        return await this.db.remove({
+            _id: req.params.id,
+            creator: currentUser
+        },{
+            multi: false
         });
-        return await this.get(id);
     }
 
     async get(currentUser, req) {
         return await this.db
             .findOne({
-                _id: req.id,
+                _id: req.params.id,
                 creator: currentUser});
     }
 

@@ -8,21 +8,22 @@ export class TodosController {
     };
 
     async createTodo(req, res) {
+        console.log(req.body.title);
         res.json(await todoStore.add(
-            SecurityUtil.currentUser(req)),
+            SecurityUtil.currentUser(req),
             req.body.title,
             req.body.description,
             req.body.importance,
-            req.body.dueDate);
+            req.body.dueDate));
     };
 
     async updateTodo(req, res) {
         res.json(await todoStore.update(
-            SecurityUtil.currentUser(req)),
+            SecurityUtil.currentUser(req),
             req.params.id,
             req.body.description,
             req.body.importance,
-            req.body.dueDate);
+            req.body.dueDate));
     };
 
     async showTodo(req, res) {
