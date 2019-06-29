@@ -20,9 +20,11 @@ export class TodosController {
         res.json(await todoStore.update(
             SecurityUtil.currentUser(req),
             req.params.id,
+            req.body.title,
             req.body.description,
             req.body.importance,
-            req.body.dueDate));
+            req.body.dueDate,
+            req.body.state));
     };
 
     async showTodo(req, res) {

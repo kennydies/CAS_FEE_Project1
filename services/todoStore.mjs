@@ -36,7 +36,8 @@ export class TodoStore {
                 description: description,
                 importance: importance,
                 dueDate: dueDate,
-                state: state }},
+                state: state
+            }},
             { returnUpdatedDocs: true },
             function (err) {
                 if (err){
