@@ -2,10 +2,12 @@
   "name": "cas_fee_project1",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.mjs",
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "express-jwt": "^5.3.1",
+    "jsonwebtoken": "^8.5.1",
     "nedb": "^1.8.0",
     "nedb-promise": "^2.0.1",
     "path": "^0.12.7"
