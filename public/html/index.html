@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="de">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/min/base.css">
+
+    <script src="../libs/handlebars-v4.0.5.js" defer></script>
+    <script src="../js/utils/handlebars-helpers.js" defer></script>
+    <script src="../js/controllers/index-controller.js" type="module"></script>
+
+    <title>Todolist | App</title>
+</head>
+<body>
+
+    <section class="page">
+
+        <header class="page-header">
+            <h1>Todolist</h1>
+
+            <button class="btn btn-icon js-create-todo" id="create-todo"><i class="material-icons">add_box</i></button>
+            <button class="btn btn-icon toggle-theme" type="button" id="toggle-theme"><i class="material-icons">brightness_medium</i></button>
+            <button class="btn btn-icon logout" type="button" id="logout"><i class="material-icons">exit_to_app</i></button>
+        </header>
+
+        <main id="list-container" class=""></main>
+
+        <footer></footer>
+
+        <div class="create-view">
+
+            <form class="create-form">
+
+                <label for="create-form__title">Titel*</label>
+                <input id="create-form__title" placeholder="Aufgabe" type="text" value="" required>
+
+                <label for="create-form__description">Beschreibung</label>
+                <input id="create-form__description" placeholder="Beschreibung" type="text" value="">
+
+                <fieldset class="create-form__importance">
+                    <p>Priorität</p>
+                    <input type="radio" name="importance" id="create-form__importance-1" value="1" checked>
+                    <input type="radio" name="importance" id="create-form__importance-2" value="2">
+                    <input type="radio" name="importance" id="create-form__importance-3" value="3">
+                    <input type="radio" name="importance" id="create-form__importance-4" value="4">
+                    <input type="radio" name="importance" id="create-form__importance-5" value="5">
+                </fieldset>
+
+                <label for="create-form__due-date">Fälligkeitsdatum</label>
+                <input id="create-form__due-date" type="date" value="">
+
+                <button data-id="{{_id}}" class="btn btn-default js-switch-state">Erledigt</button>
+                <button data-id="{{_id}}" class="btn btn-default js-abort">Abbrechen</button>
+                <button type="submit" class="btn btn-default js-update" id="save-todo">Speichern</button>
+            </form>
+        </div>
+    </section>
+
+    <script id="list-template" type="text/x-handlebars-template">
+        {{#each todos}}
+            <div class="list-item">
+                <div class="list-item__title">{{title}}</div>
+                <div class="list-item__description">{{description}}</div>
+                <div class="list-item__importance">{{importance}}</div>
+                <div class="list-item__duedate">{{formatDate dueDate}}</div>
+                <div class="list-item__btn-wrapper">
+                    <button data-id="{{_id}}" class="btn btn-icon js-switch-state"><i class="material-icons">done</i></button>
+                    <button data-id="{{_id}}" class="btn btn-icon js-delete"><i class="material-icons">delete</i></button>
+                    <button data-id="{{_id}}" class="btn btn-icon js-update"><i class="material-icons">edit</i></button>
+                </div>
+            </div>
+        {{/each}}
+    </script>
+</body>
+</html>
