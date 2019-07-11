@@ -1,15 +1,14 @@
 import Datastore from 'nedb-promise';
 
 export class Todo {
-    constructor(creator, title, description, importance, dueDate) {
+    constructor(title, description, importance, dueDate) {
         let now = new Date();
 
         this.title = title || '';
-        this.creator = creator;
         this.creationDate = now;
         this.description = description || '';
         this.dueDate = dueDate || new Date(new Date(now).setMonth(now.getMonth()+1));
-        this.importance = importance || 0;
+        this.importance = importance || 1;
         this.state = 'active';
     }
 }
@@ -23,14 +22,13 @@ export class TodoStore {
     }
 
     // TODO: refactor params > req only
-    async add (currentUser, title, description, importance, dueDate) {
-        let todo = new Todo(currentUser, title, description, importance, dueDate);
+    async add (title, description, importance, dueDate) {
+        let todo = new Todo(title, description, importance, dueDate);
         return await this.db.insert(todo);
     }
 
-    async update (currentUser, id, title, description, importance, dueDate, state) {
+    async update (id, title, description, importance, dueDate, state) {
         return await this.db.update(
-            { _id: id, creator: currentUser },
             { $set: {
                 title: title,
                 description: description,
@@ -47,10 +45,9 @@ export class TodoStore {
         );
     }
 
-    async delete(currentUser, req) {
+    async delete(req) {
         return await this.db.remove({
-            _id: req.params.id,
-            creator: currentUser
+            _id: req.params.id
         },{
             multi: false
         });
@@ -59,13 +56,12 @@ export class TodoStore {
     async get(currentUser, req) {
         return await this.db
             .findOne({
-                _id: req.params.id,
-                creator: currentUser});
+                _id: req.params.id
+            });
     }
 
     async all(currentUser) {
-        return await this.db.cfind({
-            creator: currentUser})
+        return await this.db.cfind()
             .sort({ creationDate: -1 })
             .exec();
     }

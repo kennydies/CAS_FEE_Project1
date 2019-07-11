@@ -12,9 +12,20 @@
     "nedb-promise": "^2.0.1",
     "path": "^0.12.7"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-babel": "^7.0.1",
+    "gulp-sass": "^4.0.2",
+    "gulp-uglify": "^3.0.1",
+    "node-sass": "^4.12.0"
+  },
   "scripts": {
-    "dev": "nodemon --experimental-modules app.mjs",
+    "start": "nodemon --experimental-modules app.mjs",
+    "dev": "gulp sass:watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

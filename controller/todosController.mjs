@@ -1,15 +1,13 @@
 import {todoStore} from "../services/todoStore";
-import {SecurityUtil} from '../utils/security'
 
 export class TodosController {
 
     async getTodos(req, res) {
-        res.json((await todoStore.all(SecurityUtil.currentUser(req)) || []));
+        res.json(await todoStore.all());
     };
 
     async createTodo(req, res) {
         res.json(await todoStore.add(
-            SecurityUtil.currentUser(req),
             req.body.title,
             req.body.description,
             req.body.importance,
@@ -18,7 +16,6 @@ export class TodosController {
 
     async updateTodo(req, res) {
         res.json(await todoStore.update(
-            SecurityUtil.currentUser(req),
             req.params.id,
             req.body.title,
             req.body.description,
@@ -28,11 +25,11 @@ export class TodosController {
     };
 
     async showTodo(req, res) {
-        res.json(await todoStore.get(SecurityUtil.currentUser(req), req));
+        res.json(await todoStore.get(req));
     };
 
     async deleteTodo(req, res) {
-        res.json(await todoStore.delete(SecurityUtil.currentUser(req), req));
+        res.json(await todoStore.delete(req));
     };
 }
 
