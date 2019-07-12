@@ -20,8 +20,7 @@ export class TodosController {
             req.body.title,
             req.body.description,
             req.body.importance,
-            req.body.dueDate,
-            req.body.state));
+            req.body.dueDate));
     };
 
     async showTodo(req, res) {

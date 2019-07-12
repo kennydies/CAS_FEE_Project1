@@ -27,20 +27,17 @@ export class TodoStore {
         return await this.db.insert(todo);
     }
 
-    async update (id, title, description, importance, dueDate, state) {
+    async update (id, title, description, importance, dueDate) {
         return await this.db.update(
+            { _id: id },
             { $set: {
                 title: title,
                 description: description,
                 importance: importance,
-                dueDate: dueDate,
-                state: state
+                dueDate: dueDate
             }},
-            { returnUpdatedDocs: true },
-            function (err) {
-                if (err){
-                    return err;
-                }
+            {
+                returnUpdatedDocs: true
             }
         );
     }
@@ -53,14 +50,14 @@ export class TodoStore {
         });
     }
 
-    async get(currentUser, req) {
+    async get(req) {
         return await this.db
             .findOne({
                 _id: req.params.id
             });
     }
 
-    async all(currentUser) {
+    async all() {
         return await this.db.cfind()
             .sort({ creationDate: -1 })
             .exec();

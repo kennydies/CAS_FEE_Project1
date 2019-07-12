@@ -22,8 +22,13 @@ class TodoService {
         return await httpService.ajax("DELETE", `/todos/${id}`, undefined);
     }
 
-    async updateTodo(id) {
-        return await httpService.ajax("PUT", `/todos/${id}`, undefined);
+    async updateTodo(id, todoTitle, todoDescription, todoImportance, todoDueDate) {
+        return await httpService.ajax("PUT", `/todos/${id}`, {
+            title: todoTitle,
+            description: todoDescription,
+            importance: todoImportance,
+            dueDate: todoDueDate,
+        });
     }
 }
 

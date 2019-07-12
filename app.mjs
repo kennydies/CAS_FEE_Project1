@@ -11,7 +11,6 @@ const router = express.Router();
 app.use(express.static(path.resolve('public/html')));
 app.use(express.static(path.resolve('public')));
 
-// TODO: change jwt Params for production
 app.use(bodyParser.json());
 
 app.get('/', function (req, res) {
@@ -19,6 +18,16 @@ app.get('/', function (req, res) {
 });
 
 app.use('/todos', todoRoutes);
+
+app.use(function (err, req, res, next) {
+    if (err.name === 'UnauthorizedError') {
+        res.status(401).send('No token / Invalid token provided');
+    }
+    else
+    {
+        next(err);
+    }
+});
 
 const hostname = '127.0.0.1';
 const port = 3000;
