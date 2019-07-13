@@ -4,7 +4,7 @@ const listRenderer = Handlebars.compile(document.querySelector("#list-template")
 const listContainer = document.querySelector("#list-container");
 const inputfieldsCreateTodo =  document.querySelectorAll('.create-form > input');
 const btnToggleTheme = document.querySelector(".js-toggle-theme");
-const btnToggleDone = document.querySelector(".js-toggle-done");
+const btnToggleDone = document.querySelector(".js-filter-done");
 const btnSaveTodo = document.querySelector(".js-update");
 const btnCreateNewTodo = document.querySelector(".js-create-new-todo");
 
@@ -60,6 +60,17 @@ btnCreateNewTodo.addEventListener("click", async event => {
 btnToggleTheme.addEventListener("click", async event => {
     event.preventDefault();
     document.querySelector('html').classList.toggle('alt-style');
+});
+
+btnToggleDone.addEventListener('click', event => {
+    event.preventDefault();
+    const todosDone = document.querySelectorAll(".js-switch-state:checked");
+    console.log(todosDone);
+
+    for (var todo of todosDone){
+        todo.closest('.list-item').classList.toggle('hidden');
+    }
+
 });
 
 listContainer.addEventListener("click", async function (event) {

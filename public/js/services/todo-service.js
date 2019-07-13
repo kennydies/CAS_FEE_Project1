@@ -10,6 +10,19 @@ class TodoService {
         });
     }
 
+    async updateTodo(id, todoTitle, todoDescription, todoImportance, todoDueDate) {
+        return await httpService.ajax("PUT", `/todos/${id}`, {
+            title: todoTitle,
+            description: todoDescription,
+            importance: todoImportance,
+            dueDate: todoDueDate,
+        });
+    }
+
+    async switchStateTodo(id, done) {
+        return await httpService.ajax("PATCH", `/todos/${id}`,{ done: done });
+    }
+
     async getTodos() {
         return await httpService.ajax("GET", "/todos/", undefined);
     }
@@ -20,20 +33,6 @@ class TodoService {
 
     async deleteTodo(id) {
         return await httpService.ajax("DELETE", `/todos/${id}`, undefined);
-    }
-
-    async switchStateTodo(id, done) {
-        console.log(id, done);
-        return await httpService.ajax("PATCH", `/todos/${id}`,{ done: done });
-    }
-
-    async updateTodo(id, todoTitle, todoDescription, todoImportance, todoDueDate) {
-        return await httpService.ajax("PUT", `/todos/${id}`, {
-            title: todoTitle,
-            description: todoDescription,
-            importance: todoImportance,
-            dueDate: todoDueDate,
-        });
     }
 }
 
