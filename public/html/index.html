@@ -23,9 +23,12 @@
         <header class="page-header">
             <h1>Todolist</h1>
 
-            <button class="btn btn-default js-create-new-todo" id="create-todo">new task</button>
-            <button class="btn btn-default js-toggle-theme" id="toggle-theme">toggle theme</button>
+            <button class="btn btn-default js-create-new-todo" id="create-todo">new todo</button>
             <button class="btn btn-default js-filter-done">hide done</button>
+            <button class="btn btn-default js-sort-createDate" data-sortby="createdDate">sort created</button>
+            <button class="btn btn-default js-sort-dueDate" data-sortby="dueDate">sort due</button>
+            <button class="btn btn-default js-sort-importance" data-sortby="importance">sort importance</button>
+            <button class="btn btn-default js-toggle-theme" id="toggle-theme">toggle theme</button>
         </header>
 
         <main id="list-container" class=""></main>

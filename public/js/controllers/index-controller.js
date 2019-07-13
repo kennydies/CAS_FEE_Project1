@@ -3,8 +3,13 @@ import { todoService } from '../services/todo-service.js';
 const listRenderer = Handlebars.compile(document.querySelector("#list-template").innerHTML);
 const listContainer = document.querySelector("#list-container");
 const inputfieldsCreateTodo =  document.querySelectorAll('.create-form > input');
+
 const btnToggleTheme = document.querySelector(".js-toggle-theme");
 const btnToggleDone = document.querySelector(".js-filter-done");
+const btnSortCreateDate = document.querySelector(".js-sort-createDate");
+const btnSortDueDate = document.querySelector(".js-sort-dueDate");
+const btnSortImportance = document.querySelector(".js-sort-importance");
+
 const btnSaveTodo = document.querySelector(".js-update");
 const btnCreateNewTodo = document.querySelector(".js-create-new-todo");
 
@@ -13,6 +18,16 @@ const inputTodoDescription = document.querySelector("#create-form__description")
 const inputTodoImportanceValue = document.querySelector("input[name='importance']:checked");
 const inputTodoDueDate = document.querySelector("#create-form__due-date");
 
+let sortBy = 'importance';
+
+function handleSortStore(event){
+    sortBy = event.target.dataset.sortby;
+    renderTodoList(sortBy);
+}
+
+btnSortImportance.addEventListener('click', handleSortStore);
+btnSortCreateDate.addEventListener('click', handleSortStore);
+btnSortDueDate.addEventListener('click', handleSortStore);
 
 function wipeInputFields(){
     for (var inputField of inputfieldsCreateTodo){
@@ -32,7 +47,7 @@ async function saveTodo(event){
         inputTodoDueDate.value
     );
 
-    renderTodoList();
+    renderTodoList(sortBy);
     wipeInputFields();
 }
 
@@ -48,7 +63,7 @@ async function updateTodo(event){
         inputTodoDueDate.value
     );
 
-    renderTodoList();
+    renderTodoList(sortBy);
     wipeInputFields();
 }
 
@@ -77,7 +92,7 @@ listContainer.addEventListener("click", async function (event) {
     if(event.target.classList.contains("js-delete")){
 
         await todoService.deleteTodo(event.target.dataset.id);
-        await renderTodoList();
+        await renderTodoList(sortBy);
     }
     if(event.target.classList.contains("js-update")){
 
@@ -88,7 +103,7 @@ listContainer.addEventListener("click", async function (event) {
         let done = event.target.checked;
 
         await todoService.switchStateTodo(event.target.dataset.id, done);
-        await renderTodoList();
+        await renderTodoList(sortBy);
     }
 });
 
@@ -119,8 +134,8 @@ async function renderCreateView(todoId) {
     inputTodoTitle.setAttribute("required", "");
 }
 
-async function renderTodoList() {
-    listContainer.innerHTML = listRenderer({todos: await todoService.getTodos()});
+async function renderTodoList(sortBy) {
+    listContainer.innerHTML = listRenderer({todos: await todoService.getTodos(sortBy)});
 }
 
-renderTodoList();
+renderTodoList(sortBy);

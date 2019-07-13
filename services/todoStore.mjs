@@ -69,9 +69,15 @@ export class TodoStore {
             });
     }
 
-    async all() {
+    async all(req) {
+        let sortParam = {};
+        let sortBy = req.query.sortBy || 'creationDate';
+        sortParam[sortBy] = -1;
+
+        console.log(sortParam);
+
         return await this.db.cfind()
-            .sort({ creationDate: -1 })
+            .sort(sortParam)
             .exec();
     }
 }

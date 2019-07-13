@@ -76,7 +76,8 @@ button.btn-default:hover {
 
 .create-view {
   position: fixed;
-  bottom: 0; }
+  bottom: 0;
+  margin: 0 auto; }
 
 .create-form__importance input {
   display: inline-block; }

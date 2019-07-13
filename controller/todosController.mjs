@@ -3,7 +3,7 @@ import {todoStore} from "../services/todoStore";
 export class TodosController {
 
     async getTodos(req, res) {
-        res.json(await todoStore.all());
+        res.json(await todoStore.all(req));
     };
 
     async createTodo(req, res) {

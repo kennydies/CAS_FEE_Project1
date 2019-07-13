@@ -23,8 +23,9 @@ class TodoService {
         return await httpService.ajax("PATCH", `/todos/${id}`,{ done: done });
     }
 
-    async getTodos() {
-        return await httpService.ajax("GET", "/todos/", undefined);
+    async getTodos(sortBy) {
+        const sortByParam = sortBy || '';
+        return await httpService.ajax("GET", `/todos?sortBy=${sortByParam}` );
     }
 
     async getTodo(id) {
