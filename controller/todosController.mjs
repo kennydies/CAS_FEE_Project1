@@ -23,6 +23,13 @@ export class TodosController {
             req.body.dueDate));
     };
 
+    async updateStateTodo(req, res) {
+        res.json(await todoStore.updateState(
+            req.params.id,
+            req.body.done,
+            ));
+    };
+
     async showTodo(req, res) {
         res.json(await todoStore.get(req));
     };

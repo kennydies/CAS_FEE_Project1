@@ -59,20 +59,25 @@ btnCreateNewTodo.addEventListener("click", async event => {
 
 btnToggleTheme.addEventListener("click", async event => {
     event.preventDefault();
-    document.querySelector('html').classList.toggle('alt-style')
+    document.querySelector('html').classList.toggle('alt-style');
 });
 
 listContainer.addEventListener("click", async function (event) {
     if(event.target.classList.contains("js-delete")){
 
         await todoService.deleteTodo(event.target.dataset.id);
-        await renderTodoList()
-
+        await renderTodoList();
     }
     if(event.target.classList.contains("js-update")){
 
         await renderCreateView(event.target.dataset.id);
+    }
+    if(event.target.classList.contains("js-switch-state")){
 
+        let done = event.target.checked;
+
+        await todoService.switchStateTodo(event.target.dataset.id, done);
+        await renderTodoList();
     }
 });
 

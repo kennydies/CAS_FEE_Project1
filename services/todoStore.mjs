@@ -9,7 +9,7 @@ export class Todo {
         this.description = description || '';
         this.dueDate = dueDate || new Date(new Date(now).setMonth(now.getMonth()+1));
         this.importance = importance || 1;
-        this.state = 'active';
+        this.done = false;
     }
 }
 
@@ -35,6 +35,18 @@ export class TodoStore {
                 description: description,
                 importance: importance,
                 dueDate: dueDate
+            }},
+            {
+                returnUpdatedDocs: true
+            }
+        );
+    }
+
+    async updateState (id, done) {
+        return await this.db.update(
+            { _id: id },
+            { $set: {
+                done: done,
             }},
             {
                 returnUpdatedDocs: true
