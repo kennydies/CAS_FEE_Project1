@@ -57,10 +57,12 @@ html {
     .btn.btn-icon:hover {
       background-color: #536074;
       color: #a9a9a9; }
+      .alt-style .btn.btn-icon:hover {
+        background-color: #398045; }
     @media only screen and (max-width: 910px) {
       .btn.btn-icon {
-        width: 32px;
-        height: 32px; } }
+        width: 28px;
+        height: 28px; } }
   .btn-delete {
     background: url("../../images/icons/round-delete-24px.svg") 100%/contain no-repeat; }
   .btn-edit {
@@ -77,9 +79,6 @@ html {
       color: #000000;
       background-color: #FFFFFF; }
 
-footer {
-  background-color: #536074; }
-
 header {
   background-color: #536074; }
 
@@ -87,11 +86,14 @@ nav {
   display: flex;
   justify-content: space-between;
   margin: 0 10px; }
-  nav button {
+  nav .btn {
     flex-grow: 1;
     height: 60px; }
-    nav button:last-child {
+    nav .btn:last-child {
       margin-right: 0; }
+
+footer {
+  background-color: #536074; }
 
 .wrapper {
   width: 100%;
@@ -152,9 +154,11 @@ nav {
   justify-content: center;
   width: 100%;
   bottom: -100%;
-  transition: all 1s ease-out; }
+  transition: all 1s ease-out;
+  visibility: hidden; }
   .create-view.show {
-    bottom: 10px; }
+    bottom: 10px;
+    visibility: visible; }
 
 .create-form {
   background-color: white;

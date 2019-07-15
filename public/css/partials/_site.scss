@@ -82,11 +82,15 @@ html {
     &:hover{
       background-color: $clr-primary;
       color: $clr-font-light;
+
+      .alt-style &{
+        background-color: $clr-primary-alt;
+      }
     }
 
     @include mobile{
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
     }
 
   }

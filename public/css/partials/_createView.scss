@@ -6,9 +6,11 @@
   bottom: -100%;
 
   transition: all 1s ease-out;
+  visibility: hidden;
 
   &.show{
     bottom: 10px;
+    visibility: visible;
   }
 }
 
