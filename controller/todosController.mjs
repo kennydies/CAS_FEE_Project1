@@ -7,27 +7,15 @@ export class TodosController {
     };
 
     async createTodo(req, res) {
-        res.json(await todoStore.add(
-            req.body.title,
-            req.body.description,
-            req.body.importance,
-            req.body.dueDate));
+        res.json(await todoStore.add(req));
     };
 
     async updateTodo(req, res) {
-        res.json(await todoStore.update(
-            req.params.id,
-            req.body.title,
-            req.body.description,
-            req.body.importance,
-            req.body.dueDate));
+        res.json(await todoStore.update(req));
     };
 
     async updateStateTodo(req, res) {
-        res.json(await todoStore.updateState(
-            req.params.id,
-            req.body.done,
-            ));
+        res.json(await todoStore.updateState(req));
     };
 
     async showTodo(req, res) {

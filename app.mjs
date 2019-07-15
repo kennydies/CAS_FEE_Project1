@@ -19,16 +19,6 @@ app.get('/', function (req, res) {
 
 app.use('/todos', todoRoutes);
 
-app.use(function (err, req, res, next) {
-    if (err.name === 'UnauthorizedError') {
-        res.status(401).send('No token / Invalid token provided');
-    }
-    else
-    {
-        next(err);
-    }
-});
-
 const hostname = '127.0.0.1';
 const port = 3000;
 

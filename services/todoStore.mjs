@@ -21,20 +21,23 @@ export class TodoStore {
         });
     }
 
-    // TODO: refactor params > req only
-    async add (title, description, importance, dueDate) {
-        let todo = new Todo(title, description, importance, dueDate);
+    async add (req) {
+        let todo = new Todo(req.body.title,
+                            req.body.description,
+                            req.body.importance,
+                            req.body.dueDate
+        );
         return await this.db.insert(todo);
     }
 
-    async update (id, title, description, importance, dueDate) {
+    async update (req) {
         return await this.db.update(
-            { _id: id },
+            { _id: req.params.id },
             { $set: {
-                title: title,
-                description: description,
-                importance: importance,
-                dueDate: dueDate
+                title: req.body.title,
+                description: req.body.description,
+                importance: req.body.importance,
+                dueDate: req.body.dueDate
             }},
             {
                 returnUpdatedDocs: true
@@ -42,11 +45,11 @@ export class TodoStore {
         );
     }
 
-    async updateState (id, done) {
+    async updateState (req) {
         return await this.db.update(
-            { _id: id },
+            { _id: req.params.id },
             { $set: {
-                done: done,
+                done: req.body.done,
             }},
             {
                 returnUpdatedDocs: true
@@ -73,8 +76,6 @@ export class TodoStore {
         let sortParam = {};
         let sortBy = req.query.sortBy || 'creationDate';
         sortParam[sortBy] = -1;
-
-        console.log(sortParam);
 
         return await this.db.cfind()
             .sort(sortParam)
