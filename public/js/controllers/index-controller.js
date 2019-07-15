@@ -3,6 +3,7 @@ import { todoService } from '../services/todo-service.js';
 const listRenderer = Handlebars.compile(document.querySelector("#list-template").innerHTML);
 const listContainer = document.querySelector("#list-container");
 const inputfieldsCreateTodo =  document.querySelectorAll('.create-form > input');
+const createView =  document.querySelector('.create-view');
 
 const btnToggleTheme = document.querySelector(".js-toggle-theme");
 const btnToggleDone = document.querySelector(".js-filter-done");
@@ -12,6 +13,7 @@ const btnSortImportance = document.querySelector(".js-sort-importance");
 
 const btnSaveTodo = document.querySelector(".js-update");
 const btnCreateNewTodo = document.querySelector(".js-create-new-todo");
+const btnCloseCreateView = document.querySelector(".js-abort");
 
 const inputTodoTitle = document.querySelector("#create-form__title");
 const inputTodoDescription = document.querySelector("#create-form__description");
@@ -23,6 +25,14 @@ let sortBy = 'importance';
 function handleSortStore(event){
     sortBy = event.target.dataset.sortby;
     renderTodoList(sortBy);
+}
+
+function showCreateView(){
+    createView.classList.add('show');
+}
+
+function hideCreateView(){
+    createView.classList.remove('show');
 }
 
 btnSortImportance.addEventListener('click', handleSortStore);
@@ -49,6 +59,7 @@ async function saveTodo(event){
 
     renderTodoList(sortBy);
     wipeInputFields();
+    hideCreateView();
 }
 
 async function updateTodo(event){
@@ -65,7 +76,13 @@ async function updateTodo(event){
 
     renderTodoList(sortBy);
     wipeInputFields();
+    hideCreateView();
 }
+
+btnCloseCreateView.addEventListener("click", async event => {
+    event.preventDefault();
+    hideCreateView();
+});
 
 btnCreateNewTodo.addEventListener("click", async event => {
     event.preventDefault();
@@ -80,12 +97,10 @@ btnToggleTheme.addEventListener("click", async event => {
 btnToggleDone.addEventListener('click', event => {
     event.preventDefault();
     const todosDone = document.querySelectorAll(".js-switch-state:checked");
-    console.log(todosDone);
 
     for (var todo of todosDone){
         todo.closest('.list-item').classList.toggle('hidden');
     }
-
 });
 
 listContainer.addEventListener("click", async function (event) {
@@ -132,6 +147,7 @@ async function renderCreateView(todoId) {
     }
 
     inputTodoTitle.setAttribute("required", "");
+    showCreateView();
 }
 
 async function renderTodoList(sortBy) {

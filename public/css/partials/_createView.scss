@@ -1,0 +1,51 @@
+.create-view {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  bottom: -100%;
+
+  transition: all 1s ease-out;
+
+  &.show{
+    bottom: 10px;
+  }
+}
+
+.create-form{
+
+  background-color: white;
+  padding: 15px;
+
+  fieldset{
+    border: none;
+  }
+
+  #create-form{
+    &__title,
+    &__description,
+    &__due-date{
+      width: 100%;
+      height: 2rem;
+      margin-bottom: 5px;
+    }
+  }
+
+  &__importance {
+    margin-bottom: 5px;
+  }
+
+  &__buttons{
+    width: 100%;
+
+    .wrapper{
+      display: flex;
+      justify-content: flex-end;
+
+      .btn{
+        margin-bottom: 0;
+        margin-right: 0;
+      }
+    }
+  }
+}

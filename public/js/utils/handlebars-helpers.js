@@ -28,9 +28,7 @@ Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
 
 Handlebars.registerHelper('formatDate', function (data) {
     let options = {
-        year: 'numeric', month: 'numeric', day: 'numeric',
-        hour: 'numeric', minute: 'numeric', second: 'numeric',
-        hour12: true
+        year: 'numeric', month: 'numeric', day: 'numeric'
     };
     return new Date(data).toLocaleString('de-DE', options); //ES6
 });

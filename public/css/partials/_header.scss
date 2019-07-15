@@ -1,3 +1,18 @@
 header{
   background-color: $clr-primary;
 }
+
+nav{
+  display: flex;
+  justify-content: space-between;
+  margin: 0 10px;
+
+  button{
+    flex-grow: 1;
+    height: 60px;
+
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+}
