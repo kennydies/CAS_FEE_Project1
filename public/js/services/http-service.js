@@ -1,14 +1,6 @@
-import {valueStorage} from './value-storage.js'
-
-const tokenKey = "token";
-
 class HttpService {
     ajax(method, url, data, headers) {
         const fetchHeaders = new Headers({'content-type': 'application/json', ...(headers || {})});
-        
-        if(valueStorage.getItem(tokenKey)){
-            fetchHeaders.append("authorization", "Bearer "+ valueStorage.getItem(tokenKey))
-        }
 
         return fetch(url, {
             method: method,

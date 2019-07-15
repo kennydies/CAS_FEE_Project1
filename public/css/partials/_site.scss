@@ -28,7 +28,6 @@ html {
                        "foot foot foot";
 
   grid-template-rows: 120px 4fr 1fr;
-  //grid-template-columns: 100px 1fr 1fr;
 }
 
 .page > header {
@@ -63,7 +62,6 @@ html {
   }
 }
 
-
 .btn{
   font-family: $font-family;
   font-size: $font-size;
@@ -92,7 +90,6 @@ html {
       width: 28px;
       height: 28px;
     }
-
   }
 
   &-delete{
@@ -101,10 +98,6 @@ html {
 
   &-edit{
     background: url("../../images/icons/round-edit-24px.svg") 100% / contain no-repeat;
-  }
-
-  &-check{
-
   }
 
   &.btn-default{

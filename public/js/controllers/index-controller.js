@@ -22,62 +22,9 @@ const inputTodoDueDate = document.querySelector("#create-form__due-date");
 
 let sortBy = 'importance';
 
-function handleSortStore(event){
-    sortBy = event.target.dataset.sortby;
-    renderTodoList(sortBy);
-}
-
-function showCreateView(){
-    createView.classList.add('show');
-}
-
-function hideCreateView(){
-    createView.classList.remove('show');
-}
-
 btnSortImportance.addEventListener('click', handleSortStore);
 btnSortCreateDate.addEventListener('click', handleSortStore);
 btnSortDueDate.addEventListener('click', handleSortStore);
-
-function wipeInputFields(){
-    for (var inputField of inputfieldsCreateTodo){
-        inputField.value = '';
-    }
-    document.getElementById("create-form__importance-1").checked = true;
-}
-
-async function saveTodo(event){
-    event.preventDefault();
-    const inputTodoImportance = document.querySelector("input[name='importance']:checked");
-
-    await todoService.createTodo(
-        inputTodoTitle.value,
-        inputTodoDescription.value,
-        inputTodoImportance.value,
-        inputTodoDueDate.value
-    );
-
-    renderTodoList(sortBy);
-    wipeInputFields();
-    hideCreateView();
-}
-
-async function updateTodo(event){
-    event.preventDefault();
-    const inputTodoImportance = document.querySelector("input[name='importance']:checked");
-
-    await todoService.updateTodo(
-        event.target.dataset.id,
-        inputTodoTitle.value,
-        inputTodoDescription.value,
-        inputTodoImportance.value,
-        inputTodoDueDate.value
-    );
-
-    renderTodoList(sortBy);
-    wipeInputFields();
-    hideCreateView();
-}
 
 btnCloseCreateView.addEventListener("click", async event => {
     event.preventDefault();
@@ -121,6 +68,59 @@ listContainer.addEventListener("click", async function (event) {
         await renderTodoList(sortBy);
     }
 });
+
+function handleSortStore(event){
+    sortBy = event.target.dataset.sortby;
+    renderTodoList(sortBy);
+}
+
+function showCreateView(){
+    createView.classList.add('show');
+}
+
+function hideCreateView(){
+    createView.classList.remove('show');
+}
+
+function wipeInputFields(){
+    for (var inputField of inputfieldsCreateTodo){
+        inputField.value = '';
+    }
+    document.getElementById("create-form__importance-1").checked = true;
+}
+
+async function saveTodo(event){
+    event.preventDefault();
+    const inputTodoImportance = document.querySelector("input[name='importance']:checked");
+
+    await todoService.createTodo(
+        inputTodoTitle.value,
+        inputTodoDescription.value,
+        inputTodoImportance.value,
+        inputTodoDueDate.value
+    );
+
+    renderTodoList(sortBy);
+    wipeInputFields();
+    hideCreateView();
+}
+
+async function updateTodo(event){
+    event.preventDefault();
+    const inputTodoImportance = document.querySelector("input[name='importance']:checked");
+
+    await todoService.updateTodo(
+        event.target.dataset.id,
+        inputTodoTitle.value,
+        inputTodoDescription.value,
+        inputTodoImportance.value,
+        inputTodoDueDate.value
+    );
+
+    renderTodoList(sortBy);
+    wipeInputFields();
+    hideCreateView();
+}
 
 async function renderCreateView(todoId) {
 
