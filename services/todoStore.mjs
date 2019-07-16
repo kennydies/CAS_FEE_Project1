@@ -2,12 +2,12 @@ import Datastore from 'nedb-promise';
 
 export class Todo {
     constructor(title, description, importance, dueDate) {
-        let now = new Date().toISOString().slice(0,10);
+        let now = new Date();
 
         this.title = title || '';
-        this.creationDate = now;
+        this.creationDate = now.toISOString().slice(0,10);
         this.description = description || '';
-        this.dueDate = dueDate || new Date(new Date(now).setMonth(now.getMonth()+1).toISOString().slice(0,10));
+        this.dueDate = dueDate || new Date(new Date(now).setMonth(now.getMonth()+1)).toISOString().slice(0,10);
         this.importance = importance || 1;
         this.done = false;
     }
