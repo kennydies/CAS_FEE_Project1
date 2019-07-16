@@ -1,12 +1,12 @@
 import { todoService } from '../services/todo-service.js';
 
-const listRenderer = Handlebars.compile(document.querySelector("#list-template").innerHTML);
-const listContainer = document.querySelector("#list-container");
+const listRenderer = Handlebars.compile(document.querySelector(".list-template").innerHTML);
+const listContainer = document.querySelector(".list-container");
 const inputfieldsCreateTodo =  document.querySelectorAll('.create-form > input');
 const createView =  document.querySelector('.create-view');
 
 const btnToggleTheme = document.querySelector(".js-toggle-theme");
-const btnToggleDone = document.querySelector(".js-filter-done");
+const btnToggleDoneVisibility = document.querySelector(".js-filter-done");
 const btnSortCreateDate = document.querySelector(".js-sort-createDate");
 const btnSortDueDate = document.querySelector(".js-sort-dueDate");
 const btnSortImportance = document.querySelector(".js-sort-importance");
@@ -21,47 +21,40 @@ const inputTodoImportanceValue = document.querySelector("input[name='importance'
 const inputTodoDueDate = document.querySelector("#create-form__due-date");
 
 let sortBy = 'importance';
+let showDoneTodos = true;
 
 btnSortImportance.addEventListener('click', handleSortStore);
 btnSortCreateDate.addEventListener('click', handleSortStore);
 btnSortDueDate.addEventListener('click', handleSortStore);
+btnToggleDoneVisibility.addEventListener('click', toggleDoneTodoVisibility);
 
-btnCloseCreateView.addEventListener("click", async event => {
+btnCloseCreateView.addEventListener("click", event => {
     event.preventDefault();
     hideCreateView();
 });
 
-btnCreateNewTodo.addEventListener("click", async event => {
+btnCreateNewTodo.addEventListener("click", event => {
     event.preventDefault();
     renderCreateView();
 });
 
-btnToggleTheme.addEventListener("click", async event => {
+btnToggleTheme.addEventListener("click", event => {
     event.preventDefault();
     document.querySelector('html').classList.toggle('alt-style');
 });
 
-btnToggleDone.addEventListener('click', event => {
-    event.preventDefault();
-    const todosDone = document.querySelectorAll(".js-switch-state:checked");
-
-    for (var todo of todosDone){
-        todo.closest('.list-item').classList.toggle('hidden');
-    }
-});
-
 listContainer.addEventListener("click", async function (event) {
-    if(event.target.classList.contains("js-delete")){
 
+    if(event.target.classList.contains("js-delete")){
         await todoService.deleteTodo(event.target.dataset.id);
         await renderTodoList(sortBy);
     }
-    if(event.target.classList.contains("js-update")){
 
+    if(event.target.classList.contains("js-update")){
         await renderCreateView(event.target.dataset.id);
     }
-    if(event.target.classList.contains("js-switch-state")){
 
+    if(event.target.classList.contains("js-switch-state")){
         let done = event.target.checked;
 
         await todoService.switchStateTodo(event.target.dataset.id, done);
@@ -69,7 +62,19 @@ listContainer.addEventListener("click", async function (event) {
     }
 });
 
+function toggleDoneTodoVisibility() {
+
+    const todosDone = document.querySelectorAll(".js-switch-state:checked");
+
+    for (var todo of todosDone){
+        todo.closest('.list-item').classList.toggle('hidden');
+    }
+
+    showDoneTodos = !(showDoneTodos === true);
+}
+
 function handleSortStore(event){
+
     sortBy = event.target.dataset.sortby;
     renderTodoList(sortBy);
 }
@@ -123,7 +128,6 @@ async function updateTodo(event){
 }
 
 async function renderCreateView(todoId) {
-
     btnSaveTodo.removeEventListener("click", updateTodo);
     btnSaveTodo.removeEventListener("click", saveTodo);
 
@@ -152,6 +156,11 @@ async function renderCreateView(todoId) {
 
 async function renderTodoList(sortBy) {
     listContainer.innerHTML = listRenderer({todos: await todoService.getTodos(sortBy)});
+
+    if (showDoneTodos !== true){
+        showDoneTodos = true;
+        toggleDoneTodoVisibility();
+    }
 }
 
 renderTodoList(sortBy);
