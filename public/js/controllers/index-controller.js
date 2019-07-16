@@ -128,8 +128,8 @@ async function updateTodo(event){
 }
 
 async function renderCreateView(todoId) {
-    btnSaveTodo.removeEventListener("click", updateTodo);
-    btnSaveTodo.removeEventListener("click", saveTodo);
+    btnSaveTodo.removeEventListener("submit", updateTodo);
+    btnSaveTodo.removeEventListener("submit", saveTodo);
 
     if (todoId){
         const todoData = await todoService.getTodo(todoId);
@@ -142,11 +142,11 @@ async function renderCreateView(todoId) {
         let selectedRadio = document.getElementById(`create-form__importance-${todoData.importance}`);
         selectedRadio.checked = true;
 
-        btnSaveTodo.addEventListener("click", updateTodo);
+        btnSaveTodo.addEventListener("submit", updateTodo);
         btnSaveTodo.setAttribute('data-id', todoId);
     } else {
         wipeInputFields();
-        btnSaveTodo.addEventListener("click", saveTodo);
+        btnSaveTodo.addEventListener("submit", saveTodo);
         btnSaveTodo.removeAttribute('data-id');
     }
 
