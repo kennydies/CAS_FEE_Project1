@@ -11,7 +11,7 @@ const btnSortCreateDate = document.querySelector(".js-sort-createDate");
 const btnSortDueDate = document.querySelector(".js-sort-dueDate");
 const btnSortImportance = document.querySelector(".js-sort-importance");
 
-const btnSaveTodo = document.querySelector(".js-update");
+const frmSaveTodo = document.querySelector(".js-update");
 const btnCreateNewTodo = document.querySelector(".js-create-new-todo");
 const btnCloseCreateView = document.querySelector(".js-abort");
 
@@ -128,8 +128,8 @@ async function updateTodo(event){
 }
 
 async function renderCreateView(todoId) {
-    btnSaveTodo.removeEventListener("submit", updateTodo);
-    btnSaveTodo.removeEventListener("submit", saveTodo);
+    frmSaveTodo.removeEventListener("submit", updateTodo);
+    frmSaveTodo.removeEventListener("submit", saveTodo);
 
     if (todoId){
         const todoData = await todoService.getTodo(todoId);
@@ -142,12 +142,12 @@ async function renderCreateView(todoId) {
         let selectedRadio = document.getElementById(`create-form__importance-${todoData.importance}`);
         selectedRadio.checked = true;
 
-        btnSaveTodo.addEventListener("submit", updateTodo);
-        btnSaveTodo.setAttribute('data-id', todoId);
+        frmSaveTodo.addEventListener("submit", updateTodo);
+        frmSaveTodo.setAttribute('data-id', todoId);
     } else {
         wipeInputFields();
-        btnSaveTodo.addEventListener("submit", saveTodo);
-        btnSaveTodo.removeAttribute('data-id');
+        frmSaveTodo.addEventListener("submit", saveTodo);
+        frmSaveTodo.removeAttribute('data-id');
     }
 
     inputTodoTitle.setAttribute("required", "");

@@ -10,6 +10,7 @@
     "jsonwebtoken": "^8.5.1",
     "nedb": "^1.8.0",
     "nedb-promise": "^2.0.1",
+    "nodemon": "^1.19.1",
     "path": "^0.12.7"
   },
   "devDependencies": {
